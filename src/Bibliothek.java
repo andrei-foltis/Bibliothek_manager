@@ -47,4 +47,14 @@ public class Bibliothek {
         }
         return books_filtered;
     }
+
+    public Buch most_expensive_book(List<Buch> books) {
+        Buch book_expensive = books.getFirst();
+        for(Buch b: books){
+            if(b.getPrice()>book_expensive.getPrice()){
+                book_expensive = b;
+            }
+        }
+        return book_expensive;
+    }
 }

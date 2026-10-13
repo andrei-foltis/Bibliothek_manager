@@ -57,4 +57,14 @@ public class Bibliothek {
         }
         return book_expensive;
     }
+
+    public List<Buch> pagesMoreThan(int pages) {
+        List<Buch> books_filtered = new ArrayList<>();
+        for(Buch b: books){
+            if(b.getPages()>=pages){
+                books_filtered.add(b);
+            }
+        }
+        return books_filtered;
+    }
 }

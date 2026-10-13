@@ -17,6 +17,7 @@ class Main{
             System.out.println("5. Durchschnittliche Seitenanzahl");
             System.out.println("6. Bucher innerhalb eines Preislimits");
             System.out.println("7. Teuerste Buch");
+            System.out.println("8. Bucher mit einer Mindestanzahl");
             System.out.print("Bitte wählen Sie eine Option: ");
 
             String choice = scanner.nextLine();
@@ -43,6 +44,9 @@ class Main{
                     break;
                 case "7":
                     most_expensive_book(bibliothek);
+                    break;
+                case "8":
+                    pagesMoreThan(bibliothek);
                     break;
                 default:
                     System.out.println("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
@@ -123,6 +127,14 @@ class Main{
             System.out.printf("%s (%d Euro)%n", b.getTitle(), b.getPrice());
         }else{
             System.out.println("NULL");
+        }
+    }
+    public static void pagesMoreThan(Bibliothek bibliothek){
+        System.out.print("Mindestanzahl: ");
+        int pages=Integer.parseInt(scanner.nextLine());
+        List<Buch> books = bibliothek.pagesMoreThan(pages);
+        for(Buch b: books){
+            System.out.println(b.getTitle());
         }
     }
 }

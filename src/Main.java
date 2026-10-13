@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class Main{
@@ -12,6 +14,7 @@ class Main{
             System.out.println("2. Buch hinzufügen");
             System.out.println("3. Bibliothek initialisieren");
             System.out.println("4. Bücher eines Autors suchen");
+            System.out.println("5. Durchschnittliche Seitenanzahl");
             System.out.print("Bitte wählen Sie eine Option: ");
 
             String choice = scanner.nextLine();
@@ -26,8 +29,12 @@ class Main{
                     break;
                 case "3":
                     initialise_library(bibliothek);
+                    break;
                 case "4":
                     books_by_author(bibliothek);
+                    break;
+                case "5":
+                    System.out.println(avg_pages(bibliothek));
                     break;
                 default:
                     System.out.println("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
@@ -49,9 +56,9 @@ class Main{
         System.out.println("Autor: ");
         String author = scanner.nextLine();
         System.out.println("Preis: ");
-        int price = scanner.nextInt();
+        int price = Integer.parseInt(scanner.nextLine());
         System.out.println("Anzahl der Seiten: ");
-        int pages = scanner.nextInt();
+        int pages = Integer.parseInt(scanner.nextLine());
         Buch b = new Buch(title, author, price, pages);
         bibliothek.add(b);
     }
@@ -62,5 +69,21 @@ class Main{
         for (Buch b:bibliothek.filter_author(author)){
             System.out.println(b.getTitle());
         }
+    }
+
+    public static float avg_pages(Bibliothek bibliothek){
+        System.out.println("Anzahl Bucher:");
+        int no_books=Integer.parseInt(scanner.nextLine());
+        List<Buch> books = new ArrayList<>();
+        for (int i=0; i< no_books; i++){
+            System.out.println("Buch Titel: ");
+            String title = scanner.nextLine();
+            if(bibliothek.find_by_title(title)==null){
+                System.out.println("here");
+                System.out.println("Buch nicht in Bibliothek");
+            }
+            books.add(bibliothek.find_by_title(title));
+        }
+        return bibliothek.avg_pages(books);
     }
 }

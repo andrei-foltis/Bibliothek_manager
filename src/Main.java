@@ -1,13 +1,55 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.util.Scanner;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+class Main{
+    private static final Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args){
+        Bibliothek bibliothek = new Bibliothek();
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n--- Bibliothek Hauptmenü ---");
+            System.out.println("1. Buch hinzufügen");
+            System.out.println("2. Bücher eines Autors suchen");
+            System.out.println("3. Programm beenden");
+            System.out.print("Bitte wählen Sie eine Option: ");
+
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    add_book(bibliothek);
+                    break;
+                case "2":
+                    books_by_author(bibliothek);
+                    break;
+                case "3":
+                    running = false;
+                    System.out.println("Programm wird beendet.");
+                    break;
+                default:
+                    System.out.println("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
+            }
+        }
+    }
+
+    public static void add_book(Bibliothek bibliothek){
+        System.out.println("Titel: ");
+        String title = scanner.nextLine();
+        System.out.println("Autor: ");
+        String author = scanner.nextLine();
+        System.out.println("Preis: ");
+        int price = scanner.nextInt();
+        System.out.println("Anzahl der Seiten: ");
+        int pages = scanner.nextInt();
+        Buch b = new Buch(title, author, price, pages);
+        bibliothek.add(b);
+    }
+
+    public static void books_by_author(Bibliothek bibliothek){
+        System.out.println("Autor: ");
+        String author = scanner.nextLine();
+        for (Buch b:bibliothek.filter_author(author)){
+            System.out.println(b.getTitle());
+        }
     }
 }

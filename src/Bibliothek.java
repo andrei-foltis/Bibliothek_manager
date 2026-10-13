@@ -37,4 +37,14 @@ public class Bibliothek {
         }
         return null;
     }
+
+    public List<Buch> books_cheaper(int price) {
+        List<Buch> books_filtered = new ArrayList<>();
+        for(Buch b: books){
+            if (b.getPrice()<=price){
+                books_filtered.add(b);
+            }
+        }
+        return books_filtered;
+    }
 }

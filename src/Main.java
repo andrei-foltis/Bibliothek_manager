@@ -15,6 +15,7 @@ class Main{
             System.out.println("3. Bibliothek initialisieren");
             System.out.println("4. Bücher eines Autors suchen");
             System.out.println("5. Durchschnittliche Seitenanzahl");
+            System.out.println("6. Bucher innerhalb eines Preislimits");
             System.out.print("Bitte wählen Sie eine Option: ");
 
             String choice = scanner.nextLine();
@@ -35,6 +36,9 @@ class Main{
                     break;
                 case "5":
                     System.out.println(avg_pages(bibliothek));
+                    break;
+                case "6":
+                    books_cheaper_than(bibliothek);
                     break;
                 default:
                     System.out.println("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
@@ -81,9 +85,21 @@ class Main{
             if(bibliothek.find_by_title(title)==null){
                 System.out.println("here");
                 System.out.println("Buch nicht in Bibliothek");
+                i--;
+            }else{
+                books.add(bibliothek.find_by_title(title));
             }
-            books.add(bibliothek.find_by_title(title));
         }
         return bibliothek.avg_pages(books);
     }
+    public static void books_cheaper_than(Bibliothek bibliothek){
+        System.out.println("Maximaler Preis: ");
+        int price=Integer.parseInt(scanner.nextLine());
+        List<Buch> books_cheaper = bibliothek.books_cheaper(price);
+        for(Buch b: books_cheaper){
+            System.out.println(b.getTitle());
+        }
+    }
+
+
 }

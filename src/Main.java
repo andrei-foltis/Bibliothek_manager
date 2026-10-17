@@ -88,7 +88,7 @@ class Main{
     }
 
     public static float avgPages(Library library){
-        System.out.print("Anzahl Bucher:");
+        System.out.print("Anzahl Bucher: ");
         int noBooks=Integer.parseInt(scanner.nextLine());
         List<Book> books = new ArrayList<>();
         for (int i=0; i< noBooks; i++){
@@ -107,7 +107,9 @@ class Main{
 
     public static void booksCheaperThan(Library library){
         System.out.print("Maximaler Preis: ");
-        int price=Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        String justTheNumber = input.replaceAll("[^0-9]", "");
+        int price=Integer.parseInt(justTheNumber);
         List<Book> booksCheaper = library.booksCheaper(price);
         for(Book book: booksCheaper){
             System.out.println(book.getTitle());
@@ -138,7 +140,9 @@ class Main{
     }
     public static void pagesMoreThan(Library library){
         System.out.print("Mindestanzahl: ");
-        int pages=Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        String justTheNumber = input.replaceAll("[^0-9]", "");
+        int pages=Integer.parseInt(justTheNumber);
         List<Book> books = library.pagesMoreThan(pages);
         for(Book book: books){
             System.out.println(book.getTitle());
@@ -146,7 +150,9 @@ class Main{
     }
     public static void booksWithinBudget(Library library){
         System.out.print("Budget: ");
-        int price=Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        String justTheNumber = input.replaceAll("[^0-9]", "");
+        int price=Integer.parseInt(justTheNumber);
         BudgetResult result = library.booksWithinBudget(price);
         if (result == null){
             System.out.println("Keine Bucher wurden in den Budget gefunden");

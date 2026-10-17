@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 class Main{
     private static final Scanner scanner = new Scanner(System.in);
-    static void main(String[] args){
-        Bibliothek bibliothek = new Bibliothek();
+    public static void main(String[] args){
+        Library library = new Library();
         boolean running = true;
 
         while (running) {
@@ -13,11 +13,12 @@ class Main{
             System.out.println("1. Programm beenden");
             System.out.println("2. Buch hinzufügen");
             System.out.println("3. Bibliothek initialisieren");
-            System.out.println("4. Bücher eines Autors suchen");
+            System.out.println("4. Bucher eines Autors suchen");
             System.out.println("5. Durchschnittliche Seitenanzahl");
             System.out.println("6. Bucher innerhalb eines Preislimits");
             System.out.println("7. Teuerste Buch");
             System.out.println("8. Bucher mit einer Mindestanzahl");
+            System.out.println("9. Zwei Bucher innerhalb einer Budgets");
             System.out.print("Bitte wählen Sie eine Option: ");
 
             String choice = scanner.nextLine();
@@ -28,25 +29,28 @@ class Main{
                     System.out.println("Programm wird beendet.");
                     break;
                 case "2":
-                    add_book(bibliothek);
+                    addBook(library);
                     break;
                 case "3":
-                    initialise_library(bibliothek);
+                    initialiseLibrary(library);
                     break;
                 case "4":
-                    books_by_author(bibliothek);
+                    booksByAuthor(library);
                     break;
                 case "5":
-                    System.out.println(avg_pages(bibliothek));
+                    System.out.println(avgPages(library));
                     break;
                 case "6":
-                    books_cheaper_than(bibliothek);
+                    booksCheaperThan(library);
                     break;
                 case "7":
-                    most_expensive_book(bibliothek);
+                    mostExpensiveBook(library);
                     break;
                 case "8":
-                    pagesMoreThan(bibliothek);
+                    pagesMoreThan(library);
+                    break;
+                case "9":
+                    booksWithinBudget(library);
                     break;
                 default:
                     System.out.println("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
@@ -54,15 +58,15 @@ class Main{
         }
     }
 
-    public static void initialise_library(Bibliothek bibliothek){
-        bibliothek.add(new Buch("Clean Code", "Robert Martin", 45, 464));
-        bibliothek.add(new Buch("1984", "George Orwell", 18, 328));
-        bibliothek.add(new Buch("Animal Farm", "George Orwell", 12, 112));
-        bibliothek.add(new Buch("Java Basics", "Max Muller", 35, 520));
-        bibliothek.add(new Buch("The Hobbit", "J. R. R. Tolkien", 28, 310));
+    public static void initialiseLibrary(Library library){
+        library.add(new Book("Clean Code", "Robert Martin", 45, 464));
+        library.add(new Book("1984", "George Orwell", 18, 328));
+        library.add(new Book("Animal Farm", "George Orwell", 12, 112));
+        library.add(new Book("Java Basics", "Max Muller", 35, 520));
+        library.add(new Book("The Hobbit", "J. R. R. Tolkien", 28, 310));
     }
 
-    public static void add_book(Bibliothek bibliothek){
+    public static void addBook(Library library){
         System.out.println("Titel: ");
         String title = scanner.nextLine();
         System.out.println("Autor: ");
@@ -71,70 +75,84 @@ class Main{
         int price = Integer.parseInt(scanner.nextLine());
         System.out.println("Anzahl der Seiten: ");
         int pages = Integer.parseInt(scanner.nextLine());
-        Buch b = new Buch(title, author, price, pages);
-        bibliothek.add(b);
+        Book b = new Book(title, author, price, pages);
+        library.add(b);
     }
 
-    public static void books_by_author(Bibliothek bibliothek){
-        System.out.println("Autor: ");
+    public static void booksByAuthor(Library library){
+        System.out.print("Autor: ");
         String author = scanner.nextLine();
-        for (Buch b:bibliothek.filter_author(author)){
+        for (Book b: library.filterAuthor(author)){
             System.out.println(b.getTitle());
         }
     }
 
-    public static float avg_pages(Bibliothek bibliothek){
-        System.out.println("Anzahl Bucher:");
+    public static float avgPages(Library library){
+        System.out.print("Anzahl Bucher:");
         int no_books=Integer.parseInt(scanner.nextLine());
-        List<Buch> books = new ArrayList<>();
+        List<Book> books = new ArrayList<>();
         for (int i=0; i< no_books; i++){
-            System.out.println("Buch Titel: ");
+            System.out.print("Buch Titel: ");
             String title = scanner.nextLine();
-            if(bibliothek.find_by_title(title)==null){
+            if(library.findByTitle(title)==null){
                 System.out.println("Buch nicht in Bibliothek");
                 i--;
             }else{
-                books.add(bibliothek.find_by_title(title));
+                books.add(library.findByTitle(title));
             }
         }
-        return bibliothek.avg_pages(books);
+        return library.avgPages(books);
     }
 
-    public static void books_cheaper_than(Bibliothek bibliothek){
-        System.out.println("Maximaler Preis: ");
+    public static void booksCheaperThan(Library library){
+        System.out.print("Maximaler Preis: ");
         int price=Integer.parseInt(scanner.nextLine());
-        List<Buch> books_cheaper = bibliothek.books_cheaper(price);
-        for(Buch b: books_cheaper){
-            System.out.println(b.getTitle());
+        List<Book> books_cheaper = library.booksCheaper(price);
+        for(Book book: books_cheaper){
+            System.out.println(book.getTitle());
         }
     }
 
-    public static void most_expensive_book(Bibliothek bibliothek){
-        System.out.println("Anzahl Bucher: ");
+    public static void mostExpensiveBook(Library library){
+        System.out.print("Anzahl Bucher: ");
         int no_books=Integer.parseInt(scanner.nextLine());
-        List<Buch> books = new ArrayList<>();
+        List<Book> books = new ArrayList<>();
         for (int i=0; i< no_books; i++){
-            System.out.println("Buch Titel: ");
+            System.out.print("Buch Titel: ");
             String title = scanner.nextLine();
-            if(bibliothek.find_by_title(title)==null){
+            if(library.findByTitle(title)==null){
                 System.out.println("Buch nicht in Bibliothek");
+                i--;
             }else{
-                books.add(bibliothek.find_by_title(title));
+                books.add(library.findByTitle(title));
             }
         }
         if(!books.isEmpty()){
-            Buch b = bibliothek.most_expensive_book(books);
-            System.out.printf("%s (%d Euro)%n", b.getTitle(), b.getPrice());
+            Book book = library.mostExpensiveBook(books);
+            System.out.printf("%s (%d Euro)%n", book.getTitle(), book.getPrice());
         }else{
             System.out.println("NULL");
         }
     }
-    public static void pagesMoreThan(Bibliothek bibliothek){
+    public static void pagesMoreThan(Library library){
         System.out.print("Mindestanzahl: ");
         int pages=Integer.parseInt(scanner.nextLine());
-        List<Buch> books = bibliothek.pagesMoreThan(pages);
-        for(Buch b: books){
-            System.out.println(b.getTitle());
+        List<Book> books = library.pagesMoreThan(pages);
+        for(Book book: books){
+            System.out.println(book.getTitle());
+        }
+    }
+    public static void booksWithinBudget(Library library){
+        System.out.print("Budget: ");
+        int price=Integer.parseInt(scanner.nextLine());
+        BudgetResult result = library.booksWithinBudget(price);
+        if (result == null){
+            System.out.println("Keine Bucher wurden in den Budget gefunden");
+        }else{
+            System.out.printf("%s + %s\nGesamtpreis: %d Euro\n",
+                    result.getBook1().getTitle(),
+                    result.getBook2().getTitle(),
+                    result.getCombinedPrice());
         }
     }
 }

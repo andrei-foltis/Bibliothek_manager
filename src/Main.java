@@ -89,16 +89,17 @@ class Main{
 
     public static float avgPages(Library library){
         System.out.print("Anzahl Bucher:");
-        int no_books=Integer.parseInt(scanner.nextLine());
+        int noBooks=Integer.parseInt(scanner.nextLine());
         List<Book> books = new ArrayList<>();
-        for (int i=0; i< no_books; i++){
+        for (int i=0; i< noBooks; i++){
             System.out.print("Buch Titel: ");
             String title = scanner.nextLine();
-            if(library.findByTitle(title)==null){
+            Book foundBook = library.findByTitle(title);
+            if(foundBook==null){
                 System.out.println("Buch nicht in Bibliothek");
                 i--;
             }else{
-                books.add(library.findByTitle(title));
+                books.add(foundBook);
             }
         }
         return library.avgPages(books);
@@ -107,24 +108,25 @@ class Main{
     public static void booksCheaperThan(Library library){
         System.out.print("Maximaler Preis: ");
         int price=Integer.parseInt(scanner.nextLine());
-        List<Book> books_cheaper = library.booksCheaper(price);
-        for(Book book: books_cheaper){
+        List<Book> booksCheaper = library.booksCheaper(price);
+        for(Book book: booksCheaper){
             System.out.println(book.getTitle());
         }
     }
 
     public static void mostExpensiveBook(Library library){
         System.out.print("Anzahl Bucher: ");
-        int no_books=Integer.parseInt(scanner.nextLine());
+        int noBooks=Integer.parseInt(scanner.nextLine());
         List<Book> books = new ArrayList<>();
-        for (int i=0; i< no_books; i++){
+        for (int i=0; i< noBooks; i++){
             System.out.print("Buch Titel: ");
             String title = scanner.nextLine();
-            if(library.findByTitle(title)==null){
+            Book foundBook = library.findByTitle(title);
+            if(foundBook==null){
                 System.out.println("Buch nicht in Bibliothek");
                 i--;
             }else{
-                books.add(library.findByTitle(title));
+                books.add(foundBook);
             }
         }
         if(!books.isEmpty()){

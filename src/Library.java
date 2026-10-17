@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> books = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
     public Library() {}
 
@@ -11,21 +11,21 @@ public class Library {
     }
 
     public List<Book> filterAuthor(String a){
-        List<Book> filtered_books = new ArrayList<>();
+        List<Book> filteredBooks = new ArrayList<>();
         for (Book b: books){
             if (b.getAuthor().equals(a)){
-                filtered_books.add(b);
+                filteredBooks.add(b);
             }
         }
-        return filtered_books;
+        return filteredBooks;
     }
 
-    public float avgPages(List<Book> book_list){
+    public float avgPages(List<Book> bookList){
         int s = 0;
-        for(Book b: book_list){
+        for(Book b: bookList){
             s+=b.getPages();
         }
-        float rawAverage = (float) s /book_list.size();
+        float rawAverage = (float) s /bookList.size();
         return Math.round(rawAverage * 100.0f) / 100.0f;
     }
 
@@ -39,36 +39,36 @@ public class Library {
     }
 
     public List<Book> booksCheaper(int price) {
-        List<Book> books_filtered = new ArrayList<>();
+        List<Book> booksFiltered = new ArrayList<>();
         for(Book b: books){
             if (b.getPrice()<=price){
-                books_filtered.add(b);
+                booksFiltered.add(b);
             }
         }
-        return books_filtered;
+        return booksFiltered;
     }
 
     public Book mostExpensiveBook(List<Book> books) {
         if (books == null || books.isEmpty()) {
             return null;
         }
-        Book book_expensive = books.getFirst();
+        Book bookExpensive = books.getFirst();
         for(Book b: books){
-            if(b.getPrice()>book_expensive.getPrice()){
-                book_expensive = b;
+            if(b.getPrice()>bookExpensive.getPrice()){
+                bookExpensive = b;
             }
         }
-        return book_expensive;
+        return bookExpensive;
     }
 
     public List<Book> pagesMoreThan(int pages) {
-        List<Book> books_filtered = new ArrayList<>();
+        List<Book> booksFiltered = new ArrayList<>();
         for(Book b: books){
             if(b.getPages()>=pages){
-                books_filtered.add(b);
+                booksFiltered.add(b);
             }
         }
-        return books_filtered;
+        return booksFiltered;
     }
 
     public BudgetResult booksWithinBudget(int price) {

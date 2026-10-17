@@ -1,6 +1,6 @@
 public class BudgetResult {
-    private Book book1;
-    private Book book2;
+    private final Book book1;
+    private final Book book2;
     public BudgetResult(Book book1, Book book2) {
         this.book1 = book1;
         this.book2 = book2;

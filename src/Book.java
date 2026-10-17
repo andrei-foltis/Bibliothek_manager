@@ -1,8 +1,8 @@
 public class Book {
-    private String title;
-    private String author;
-    private int price;
-    private int pages;
+    private final String title;
+    private final String author;
+    private final int price;
+    private final int pages;
 
     public Book(String title, String author, int price, int pages) {
         this.title = title;
@@ -15,31 +15,15 @@ public class Book {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public int getPages() {
         return pages;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
     }
 }
